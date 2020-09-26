@@ -14,6 +14,11 @@ app.keyPressed=function(){
     logica.keyPressed();
 }
 app.mouseDragged=function(){
-    logica.mouseDragged();
-}}
+    logica.clicsostenido();
+}
+app.mouseReleased=function(){
+    logica.clicsuelto();
+}
+
+}
 );
