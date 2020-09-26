@@ -8,7 +8,7 @@ app.draw=function(){
     logica.draw();
 }
 app.mousePressed=function(){
-    logica.mousePressed();
+    logica.clic();
 }
 app.keyPressed=function(){
     logica.keyPressed();
