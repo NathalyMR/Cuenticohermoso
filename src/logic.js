@@ -127,8 +127,12 @@ clic(){
     }
 
 clicsostenido(){
- if(this.seleccion){
-     this.lobox=this.app.mouseX-this.posicionx;
+ if(this.seleccion && this.app.mouseY>=303)
+ { if () {
+    this.lobox=this.app.mouseX-this.posicionx;
+     
+ }
+     
      this.loboy=this.app.mouseY-this.posiciony;
 
 
