@@ -13,12 +13,12 @@ this.cerdo2=this.app.loadImage("src/Images/Cerdo 2.png");
 this.casa2=this.app.loadImage("src/Images/Casa 2.png");
 this.casa3=this.app.loadImage("src/Images/Casa 3.png");
 this.gasolina=this.app.loadImage("src/Images/Gasolina.png");
-this.roca=this.app.loadImage("src/Images/Roca.png");
 
 
 
 
-this.lobox=0;
+
+this.lobox=100;
 this.cerdo1x=822;
 this.cerdo2x=1647;
 this.casa1x=707;
@@ -26,22 +26,32 @@ this.casa1y=175;
 this.casa2x=1529;
 this.casa3x=2201;
 this.rocax=1089;
+this.rocay=-1100;
 this.gasolinax=2679;
 this.fondox=0;
 this.loboy=432;
 this.posicionx=0;
 this.posicony=0;
+this.anchoroca=476;
+this.altoroca=476;
+this.anchocasa=410;
+this.altocada=450;
 
 
 this.seleccion=false;
 this.overlobo=false;
 this.pintarcasa=true;
+this.aplastarroca=false;
+this.pintarroca=false;
 
-this.casa1=new Obstaculo(app,this.casa1x,this.casa1y,"src/Images/Casa 1.png");
+
+this.casa1=new Obstaculo(app,this.casa1x,this.casa1y,"src/Images/Casa 1.png",this.anchocasa,this.altocasa);
+this.roca=new Obstaculo(app,this.rocax,this.rocay,"src/Images/Roca.png",this.anchoroca,this.altoroca);
+
 
 } 
 draw(){
-    console.log(this.pintarcasa);
+
    this.app.textFont(this.font)
    this.app.fill(255)
     switch(this.pantalla){
@@ -58,9 +68,9 @@ draw(){
             this.overlobo=true;
             
         }else{
-            this.overlobo=false;
+            this.overlobo=false;}
 
-        }console.log(this.overlobo);
+
       this.app.image(this.fondo,this.fondox,0)
       //this.fondox-=1
       this.app.imageMode(this.app.CENTER)
@@ -70,14 +80,32 @@ draw(){
       this.app.image(this.cerdo2,this.cerdo2x,200) 
       
       if(this.pintarcasa==true){
+         
+        this.casa1.dibujarObstaculo();
+
         
-
-
       }
-      this.casa1.dibujarObstaculo();
+
+      if (this.pintarcasa==false) {
+          this.cerdo1x+=8;
+          
+      }
+      
+      if (this.pintarroca==true) {
+        this.roca.moverObstaculo();
+        this.roca.dibujarObstaculo();
+        this.rocay++;
+console.log(this.aplastarroca);
+        if (this.aplastarroca==true) {
+            this.roca.aplastarObjeto();
+          
+        }   
+      }
+      
+      
+      
       this.app.image(this.casa2,this.casa2x,136)
       this.app.image(this.casa3,this.casa3x,56)
-      this.app.image(this.roca,this.rocax,281)
       this.app.image(this.gasolina,this.gasolinax,462)
 
 
@@ -119,6 +147,12 @@ clic(){
             
             if(this.app.mouseX>=734 && this.app.mouseX<=1092  && this.app.mouseY>=184 && this.app.mouseY<=612 && this.pantalla==1){
                 this.pintarcasa=false;
+                this.pintarroca=true;
+            }
+            
+            if(this.app.mouseX>=this.roca.rocax && this.app.mouseX<=(this.roca.rocax+476)  && this.app.mouseY>=this.roca.rocay && this.app.mouseY<=(this.roca.rocay+476) && this.pantalla==1){
+                this.aplastarroca=true;
+                console.log(holi);
             }
             
         
