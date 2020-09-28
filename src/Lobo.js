@@ -1,6 +1,5 @@
-class Obstaculo{
+class Lobo{
     constructor(app,x,y,ruta,ancho,alto){
-        
         this.app=app;
         this.x=x;
         this.y=y;
@@ -8,31 +7,11 @@ class Obstaculo{
         this.imagen=this.app.loadImage(this.ruta);
         this.ancho=ancho;
         this.alto=alto;
-        
 
     }
-
-dibujarObstaculo(){
+dibujarLobo(){
     this.app.image(this.imagen,this.x,this.y,this.ancho,this.alto);
-
-
-
-
 }
-
-moverObstaculo(){
-    
-    if (this.y<=252) {
-        this.y+=12;
-        
-    }
-}
-aplastarObjeto(){
-    this.alto=138;
-    this.y=473;
-
-}
-
 
 
 }

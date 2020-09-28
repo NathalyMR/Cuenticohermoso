@@ -7,7 +7,6 @@ this.inicio=this.app.loadImage("src/Images/Pantalla 1.jpg");
 this.pantalla=0;
 this.font=this.app.loadFont("src/Font/MoonbrightDemo-1GGn2.ttf");
 this.final=this.app.loadImage("src/Images/Pantalla 3.jpg");
-this.lobo=this.app.loadImage("src/Images/Lobo.png");
 this.cerdo1=this.app.loadImage("src/Images/Cerdo 1.png");
 this.cerdo2=this.app.loadImage("src/Images/Cerdo 2.png");
 this.casa2=this.app.loadImage("src/Images/Casa 2.png");
@@ -36,6 +35,8 @@ this.anchoroca=476;
 this.altoroca=476;
 this.anchocasa=410;
 this.altocada=450;
+this.ancholobo=228;
+this.altolobo=233;
 
 
 this.seleccion=false;
@@ -47,6 +48,7 @@ this.pintarroca=false;
 
 this.casa1=new Obstaculo(app,this.casa1x,this.casa1y,"src/Images/Casa 1.png",this.anchocasa,this.altocasa);
 this.roca=new Obstaculo(app,this.rocax,this.rocay,"src/Images/Roca.png",this.anchoroca,this.altoroca);
+this.lobo=new Lobo(app,this.lobox,this.loboy,"src/Images/Lobo.png",this.ancholobo,this.altolobo);
 
 
 } 
@@ -73,9 +75,9 @@ draw(){
 
       this.app.image(this.fondo,this.fondox,0)
       //this.fondox-=1
-      this.app.imageMode(this.app.CENTER)
-      this.app.image(this.lobo,this.lobox,this.loboy)
-      this.app.imageMode(this.app.CORNER)
+      
+      
+      
       this.app.image(this.cerdo1,this.cerdo1x,375)
       this.app.image(this.cerdo2,this.cerdo2x,200) 
       
@@ -95,13 +97,15 @@ draw(){
         this.roca.moverObstaculo();
         this.roca.dibujarObstaculo();
         this.rocay++;
-console.log(this.aplastarroca);
+
         if (this.aplastarroca==true) {
             this.roca.aplastarObjeto();
           
         }   
       }
-      
+      this.app.imageMode(this.app.CENTER)
+      this.lobo.dibujarLobo();
+      this.app.imageMode(this.app.CORNER)
       
       
       this.app.image(this.casa2,this.casa2x,136)
@@ -142,7 +146,11 @@ clic(){
             
         } else{
             this.seleccion=false;
-        } this.posiconx=this.app.mouseX-(this.lobox+114);
+        }
+        //if (this.validarChoque(this.)) {
+            
+        //}
+        this.posiconx=this.app.mouseX-(this.lobox+114);
           this.posiciony=this.app.mouseY-this.loboy;
             
             if(this.app.mouseX>=734 && this.app.mouseX<=1092  && this.app.mouseY>=184 && this.app.mouseY<=612 && this.pantalla==1){
@@ -150,7 +158,7 @@ clic(){
                 this.pintarroca=true;
             }
             
-            if(this.app.mouseX>=this.roca.rocax && this.app.mouseX<=(this.roca.rocax+476)  && this.app.mouseY>=this.roca.rocay && this.app.mouseY<=(this.roca.rocay+476) && this.pantalla==1){
+            if(this.app.mouseX>=1099 && this.app.mouseX<=1575  && this.app.mouseY>=252 && this.app.mouseY<=728 && this.pantalla==1){
                 this.aplastarroca=true;
                 console.log(holi);
             }
@@ -171,7 +179,13 @@ clic(){
 clicsostenido(){
  if(this.seleccion)
  { 
-    this.lobox=this.app.mouseX-this.posicionx;
+     if (this.lobox<=707 && this.pintarcasa==true) {
+        this.lobox=this.app.mouseX-this.posicionx;
+
+
+         
+     }
+    
     
  
      
@@ -188,6 +202,14 @@ this.seleccion=false;
 
 
 }
+
+validarChoque(d,e){
+    if (d.x + 10 > e.x && d.x - 10 < e.x && d.y + 10 > e.y && d.y - 10 < e.y) {
+      return true;
+    }
+    return false;
+  }
 }
+
 
 
