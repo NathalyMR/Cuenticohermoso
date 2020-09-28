@@ -10,17 +10,19 @@ this.final=this.app.loadImage("src/Images/Pantalla 3.jpg");
 this.lobo=this.app.loadImage("src/Images/Lobo.png");
 this.cerdo1=this.app.loadImage("src/Images/Cerdo 1.png");
 this.cerdo2=this.app.loadImage("src/Images/Cerdo 2.png");
-this.casa1=this.app.loadImage("src/Images/Casa 1.png");
 this.casa2=this.app.loadImage("src/Images/Casa 2.png");
 this.casa3=this.app.loadImage("src/Images/Casa 3.png");
 this.gasolina=this.app.loadImage("src/Images/Gasolina.png");
 this.roca=this.app.loadImage("src/Images/Roca.png");
-this.pintarcasa=true;
+
+
+
 
 this.lobox=0;
 this.cerdo1x=822;
 this.cerdo2x=1647;
 this.casa1x=707;
+this.casa1y=175;
 this.casa2x=1529;
 this.casa3x=2201;
 this.rocax=1089;
@@ -30,12 +32,16 @@ this.loboy=432;
 this.posicionx=0;
 this.posicony=0;
 
+
 this.seleccion=false;
 this.overlobo=false;
+this.pintarcasa=true;
+
+this.casa1=new Obstaculo(app,this.casa1x,this.casa1y,"src/Images/Casa 1.png");
 
 } 
 draw(){
-    
+    console.log(this.pintarcasa);
    this.app.textFont(this.font)
    this.app.fill(255)
     switch(this.pantalla){
@@ -48,7 +54,7 @@ draw(){
       
       case 1:
           
-        if(this.app.mouseX>=this.lobox && this.app.mouseX<=(this.lobox+228)  && this.app.mouseY>=this.loboy && this.app.mouseY<=(this.loboy+233)){
+        if(this.app.mouseX>=(this.lobox-114) && this.app.mouseX<=(this.lobox+114)  && this.app.mouseY>=(this.loboy-(233/2)) && this.app.mouseY<=(this.loboy+(233/2))){
             this.overlobo=true;
             
         }else{
@@ -57,16 +63,18 @@ draw(){
         }console.log(this.overlobo);
       this.app.image(this.fondo,this.fondox,0)
       //this.fondox-=1
+      this.app.imageMode(this.app.CENTER)
       this.app.image(this.lobo,this.lobox,this.loboy)
+      this.app.imageMode(this.app.CORNER)
       this.app.image(this.cerdo1,this.cerdo1x,375)
       this.app.image(this.cerdo2,this.cerdo2x,200) 
       
       if(this.pintarcasa==true){
-        this.app.image(this.casa1,this.casa1x,175)
+        
 
 
       }
-      
+      this.casa1.dibujarObstaculo();
       this.app.image(this.casa2,this.casa2x,136)
       this.app.image(this.casa3,this.casa3x,56)
       this.app.image(this.roca,this.rocax,281)
@@ -127,11 +135,11 @@ clic(){
     }
 
 clicsostenido(){
- if(this.seleccion && this.app.mouseY>=303)
- { if () {
+ if(this.seleccion)
+ { 
     this.lobox=this.app.mouseX-this.posicionx;
-     
- }
+    
+ 
      
      this.loboy=this.app.mouseY-this.posiciony;
 
