@@ -4,7 +4,7 @@ this.app=app;
 this.app.createCanvas(1530,754);
 this.fondo=this.app.loadImage("src/Images/fondo.jpg");
 this.inicio=this.app.loadImage("src/Images/Pantalla 1.jpg");
-this.pantalla=2;
+this.pantalla=0;
 this.font=this.app.loadFont("src/Font/MoonbrightDemo-1GGn2.ttf");
 this.final=this.app.loadImage("src/Images/Pantalla 3.jpg");
 this.cerdo1=this.app.loadImage("src/Images/Cerdo 1.png");
@@ -13,6 +13,7 @@ this.gasolina=this.app.loadImage("src/Images/Gasolina.png");
 this.flecha=this.app.loadImage("src/Images/Flecha.png");
 this.fondo2=this.app.loadImage("src/Images/Fondo 2.jpg");
 this.fondo3=this.app.loadImage("src/Images/Fondo3.jpg");
+this.fuego=this.app.loadImage("src/Images/Fuego.png");
 
 
 this.lobox=100;
@@ -41,6 +42,7 @@ this.altocasa2=491;
 this.anchocasa3=489;
 this.altocasa3=560;
 this.casa3y=38;
+this.angle=0;
 
 
 
@@ -56,6 +58,8 @@ this.restriccion3=true;
 this.restriccion4=true;
 this.pintarflecha=false;
 this.volarcasa=false;
+this.movergasolina=false;
+this.prenderFuego=false;
 
 
 
@@ -68,6 +72,7 @@ this.lobo2=new Lobo(app,this.lobox,this.loboy,"src/Images/Lobo.png",this.ancholo
 this.lobo3=new Lobo(app,this.lobox,this.loboy,"src/Images/Lobo.png",this.ancholobo,this.altolobo);
 
 
+this.app.angleMode(this.app.DEGREES);
 
 } 
 draw(){
@@ -138,8 +143,8 @@ draw(){
       
       
       
-      this.app.image(this.casa3,this.casa3x,56)
-      this.app.image(this.gasolina,this.gasolinax,462)
+      
+      
 
       if (this.pintarflecha==true) {
           this.app.image(this.flecha,1365,640)
@@ -193,7 +198,7 @@ draw(){
 
       case 3:
         this.app.image(this.fondo3,0,0);
-        this.app.image(this.gasolina,this.gasolinax,460);
+        
         if(this.app.mouseX>=(this.lobo3.x-114) && this.app.mouseX<=(this.lobo3.x+114)  && this.app.mouseY>=(this.lobo3.y-(233/2)) && this.app.mouseY<=(this.lobo3.y+(233/2))){
             this.overlobo=true;
 
@@ -207,10 +212,37 @@ draw(){
                 
             }
      this.casa3.dibujarObstaculo();
+
+     if (this.prenderFuego==true) {
+        this.app.image(this.flecha,1365,640)
+    }
      
      this.app.imageMode(this.app.CENTER)
          this.lobo3.dibujarLobo();
+
+         
+         
+
+         if (this.prenderFuego==true) {
+             this.app.image(this.fuego, this.lobo3.x,this.lobo3.y);
+            
+         }
+
+
+        this.app.translate(1390,530);
+        if (this.app.mouseX>=1326 && this.app.mouseX<=1453 && this.app.mouseY>=460 && this.app.mouseY<=609) {
+            this.app.rotate(this.angle);
+        }
+        
+        
+         this.app.imageMode(this.app.CENTER)
+         this.app.image(this.gasolina,0,0);
          this.app.imageMode(this.app.CORNER)
+       
+         this.angle=this.angle+5;
+
+         
+
 
 
       break;
@@ -317,11 +349,18 @@ clic(){
             
           if(this.app.mouseX>=this.casa3x && this.app.mouseX<=(this.casa3x+this.anchocasa3) && this.app.mouseY>=this.casa3y && this.app.mouseY<=(this.casa3y+this.altocasa3)){
             this.restriccion4=true;
-            
- 
- 
+                      
 }
 
+if (this.app.mouseX>=1326 && this.app.mouseX<=1453 && this.app.mouseY>=460 && this.app.mouseY<=609) {
+    this.prenderFuego=true;
+}
+
+if (this.app.mouseX>=1365 && this.app.mouseX<=1463 && this.app.mouseY>=640 && this.app.mouseY<=697 && this.volarcasa==true) {
+        this.pantalla=4
+        
+        
+    } 
 
 
             }
