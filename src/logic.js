@@ -7,10 +7,9 @@ this.inicio=this.app.loadImage("src/Images/Pantalla 1.jpg");
 this.pantalla=0;
 this.font=this.app.loadFont("src/Font/MoonbrightDemo-1GGn2.ttf");
 this.final=this.app.loadImage("src/Images/Pantalla 3.jpg");
-this.cerdo1=this.app.loadImage("src/Images/Cerdo 1.png");
+this.cerdo1=this.app.loadImage("src/Images/Cerdo1.png");
 this.cerdo2=this.app.loadImage("src/Images/Cerdo 2.png");
-this.gasolina=this.app.loadImage("src/Images/Gasolina.png");
-this.flecha=this.app.loadImage("src/Images/Flecha.png");
+this.gasolina=this.app.loadImage("src/Images/Gasolina_0.png");
 this.fondo2=this.app.loadImage("src/Images/Fondo 2.jpg");
 this.fondo3=this.app.loadImage("src/Images/Fondo3.jpg");
 this.fuego=this.app.loadImage("src/Images/Fuego.png");
@@ -45,6 +44,10 @@ this.casa3y=38;
 this.angle=0;
 
 
+this.flecha=[];
+this.flecha[0]=this.app.loadImage("src/Images/Flecha_0.png");
+this.flecha[1]=this.app.loadImage("src/Images/Flecha_1.png");
+this.estadoFlecha=0;
 
 
 this.seleccion=false;
@@ -63,13 +66,13 @@ this.prenderFuego=false;
 
 
 
-this.casa1=new Obstaculo(app,this.casa1x,this.casa1y,"src/Images/Casa 1.png",this.anchocasa,this.altocasa);
-this.casa2=new Casa(app,this.casa2x,this.casa2y,"src/Images/Casa 2.png",this.anchocasa2,this.altocasa2);
-this.casa3=new Obstaculo(app,this.casa3x,this.casa3y,"src/Images/Casa 3.png",this.anchocasa3,this.altocasa3);
-this.roca=new Roca(app,this.rocax,this.rocay,"src/Images/Roca.png",this.anchoroca,this.altoroca);
-this.lobo=new Lobo(app,this.lobox,this.loboy,"src/Images/Lobo.png",this.ancholobo,this.altolobo);
-this.lobo2=new Lobo(app,this.lobox,this.loboy,"src/Images/Lobo.png",this.ancholobo,this.altolobo);
-this.lobo3=new Lobo(app,this.lobox,this.loboy,"src/Images/Lobo.png",this.ancholobo,this.altolobo);
+this.casa1=new Obstaculo(app,this.casa1x,this.casa1y,"src/Images/Casa 1_",this.anchocasa,this.altocasa);
+this.casa2=new Casa(app,this.casa2x,this.casa2y,"src/Images/Casa 2_",this.anchocasa2,this.altocasa2);
+this.casa3=new Obstaculo(app,this.casa3x,this.casa3y,"src/Images/Casa 3_",this.anchocasa3,this.altocasa3);
+this.roca=new Roca(app,this.rocax,this.rocay,"src/Images/Roca_",this.anchoroca,this.altoroca);
+this.lobo=new Lobo(app,this.lobox,this.loboy,"src/Images/Lobo_",this.ancholobo,this.altolobo);
+this.lobo2=new Lobo(app,this.lobox,this.loboy,"src/Images/Lobo_",this.ancholobo,this.altolobo);
+this.lobo3=new Lobo(app,this.lobox,this.loboy,"src/Images/Lobo_",this.ancholobo,this.altolobo);
 
 
 this.app.angleMode(this.app.DEGREES);
@@ -79,6 +82,8 @@ draw(){
 
    this.app.textFont(this.font)
    this.app.fill(255)
+
+   
     switch(this.pantalla){
      case 0: 
       this.app.image(this.inicio,0,0)
@@ -88,12 +93,19 @@ draw(){
       break;
       
       case 1:
-          
+        this.lobo.cambiarEstado();
+        this.casa1.cambiarEstado();
+        this.roca.cambiarEstado();
         if(this.app.mouseX>=(this.lobo.x-114) && this.app.mouseX<=(this.lobo.x+114)  && this.app.mouseY>=(this.lobo.y-(233/2)) && this.app.mouseY<=(this.lobo.y+(233/2))){
             this.overlobo=true;
             
+            
         }else{
-            this.overlobo=false;}
+            this.overlobo=false;
+            
+        }
+
+      
 
 
       this.app.image(this.fondo,this.fondox,0)
@@ -147,9 +159,18 @@ draw(){
       
 
       if (this.pintarflecha==true) {
-          this.app.image(this.flecha,1365,640)
+          this.app.image(this.flecha[this.estadoFlecha],1365,640)
           
       }
+      if (this.app.mouseX>=1365 && this.app.mouseX<=1463 && this.app.mouseY>=640 && this.app.mouseY<=697 && this.pintarflecha==true) {
+        this.estadoFlecha=1;
+
+
+        
+    }  else{
+        this.estadoFlecha=0;
+    }
+
 
 
 
@@ -160,9 +181,12 @@ draw(){
           this.app.image(this.fondo2,0,0);
           this.app.image(this.cerdo2,this.cerdo2x,185)
 
+          this.lobo2.cambiarEstado();
+          this.casa2.cambiarEstado();
+
           if(this.app.mouseX>=(this.lobo2.x-114) && this.app.mouseX<=(this.lobo2.x+114)  && this.app.mouseY>=(this.lobo2.y-(233/2)) && this.app.mouseY<=(this.lobo2.y+(233/2))){
             this.overlobo=true;
-            console.log("derazon")
+           
             
         }else{
             this.overlobo=false;}
@@ -179,7 +203,7 @@ draw(){
              
          }
          if (this.volarcasa==true) {
-            this.app.image(this.flecha,1365,640)
+            this.app.image(this.flecha[this.estadoFlecha],1365,640)
         }
 
          this.app.imageMode(this.app.CENTER)
@@ -189,6 +213,17 @@ draw(){
          if (this.volarcasa==true) {
             this.cerdo2x+=8;
         }
+        
+            
+        
+        if (this.app.mouseX>=1365 && this.app.mouseX<=1463 && this.app.mouseY>=640 && this.app.mouseY<=697 && this.pintarflecha==true) {
+          this.estadoFlecha=1;
+  
+  
+          
+      }  else{
+          this.estadoFlecha=0;
+      }
       
         
 
@@ -198,6 +233,9 @@ draw(){
 
       case 3:
         this.app.image(this.fondo3,0,0);
+
+        this.lobo3.cambiarEstado();
+        
         
         if(this.app.mouseX>=(this.lobo3.x-114) && this.app.mouseX<=(this.lobo3.x+114)  && this.app.mouseY>=(this.lobo3.y-(233/2)) && this.app.mouseY<=(this.lobo3.y+(233/2))){
             this.overlobo=true;
@@ -214,7 +252,18 @@ draw(){
      this.casa3.dibujarObstaculo();
 
      if (this.prenderFuego==true) {
-        this.app.image(this.flecha,1365,640)
+         
+            this.app.image(this.flecha[this.estadoFlecha],1365,640)
+            
+        
+        if (this.app.mouseX>=1365 && this.app.mouseX<=1463 && this.app.mouseY>=640 && this.app.mouseY<=697 && this.pintarflecha==true) {
+          this.estadoFlecha=1;
+  
+  
+          
+      }  else{
+          this.estadoFlecha=0;
+      }
     }
      
      this.app.imageMode(this.app.CENTER)
@@ -362,7 +411,7 @@ if (this.app.mouseX>=1365 && this.app.mouseX<=1463 && this.app.mouseY>=640 && th
         
     } 
     case 4:
-                if(this.app.mouseX>=983  && this.app.mouseX<=1313 && this.app.mouseY>=210 && this.app.mouseY<=313){
+                if(this.app.mouseX>=983  && this.app.mouseX<=1313 && this.app.mouseY>=210 && this.app.mouseY<=313 && this.pantalla==4){
                     this.pantalla=1;
                     this.pintarcasa=true;
                     this.aplastarroca=false;
@@ -414,21 +463,8 @@ clicsostenido(){
         this.lobo3.y=this.app.mouseY-this.posiciony;
     }
    
-        
-        
-    
-
-   
-     
-     
-
-
  }
 }
-
-
-
-
 
 
 clicsuelto(){
