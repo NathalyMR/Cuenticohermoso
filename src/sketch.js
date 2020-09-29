@@ -10,9 +10,8 @@ app.draw=function(){
 app.mousePressed=function(){
     logica.clic();
 }
-app.keyPressed=function(){
-    logica.keyPressed();
-}
+
+
 app.mouseDragged=function(){
     logica.clicsostenido();
 }

@@ -12,9 +12,9 @@ this.cerdo2=this.app.loadImage("src/Images/Cerdo 2.png");
 this.casa2=this.app.loadImage("src/Images/Casa 2.png");
 this.casa3=this.app.loadImage("src/Images/Casa 3.png");
 this.gasolina=this.app.loadImage("src/Images/Gasolina.png");
-
-
-
+this.flecha=this.app.loadImage("src/Images/Flecha.png");
+this.fondo2=this.app.loadImage("src/Images/Fondo 2.jpg");
+this.fondo3=this.app.loadImage("src/Images/Fondo3.jpg");
 
 
 this.lobox=100;
@@ -44,9 +44,16 @@ this.overlobo=false;
 this.pintarcasa=true;
 this.aplastarroca=false;
 this.pintarroca=false;
+this.restriccion1=true;
+this.restriccion2=true;
+this.restriccion3=true;
+this.restriccion4=true;
+this.pintarflecha=false;
+
 
 
 this.casa1=new Obstaculo(app,this.casa1x,this.casa1y,"src/Images/Casa 1.png",this.anchocasa,this.altocasa);
+this.casa2=new Obstaculo(app,this.casa1x,this.casa1y,"src/Images/Casa 1.png",this.anchocasa,this.altocasa);
 this.roca=new Obstaculo(app,this.rocax,this.rocay,"src/Images/Roca.png",this.anchoroca,this.altoroca);
 this.lobo=new Lobo(app,this.lobox,this.loboy,"src/Images/Lobo.png",this.ancholobo,this.altolobo);
 
@@ -66,7 +73,7 @@ draw(){
       
       case 1:
           
-        if(this.app.mouseX>=(this.lobox-114) && this.app.mouseX<=(this.lobox+114)  && this.app.mouseY>=(this.loboy-(233/2)) && this.app.mouseY<=(this.loboy+(233/2))){
+        if(this.app.mouseX>=(this.lobo.x-114) && this.app.mouseX<=(this.lobo.x+114)  && this.app.mouseY>=(this.lobo.y-(233/2)) && this.app.mouseY<=(this.lobo.y+(233/2))){
             this.overlobo=true;
             
         }else{
@@ -102,7 +109,18 @@ draw(){
             this.roca.aplastarObjeto();
           
         }   
+
       }
+      if (this.validarChoque(this.casa1) && this.pintarcasa==true) {
+          this.restriccion1=false;
+          
+      }
+      if (this.validarChoque(this.roca) && this.aplastarroca==false) {
+        this.restriccion2=false;
+    }
+
+
+
       this.app.imageMode(this.app.CENTER)
       this.lobo.dibujarLobo();
       this.app.imageMode(this.app.CORNER)
@@ -112,12 +130,44 @@ draw(){
       this.app.image(this.casa3,this.casa3x,56)
       this.app.image(this.gasolina,this.gasolinax,462)
 
+      if (this.pintarflecha==true) {
+          this.app.image(this.flecha,1365,640)
+          
+      }
+
+
+
+      break;
+      
+      case 2:
+          this.app.image(this.fondo2,0,0);
+
+          if(this.app.mouseX>=(this.lobo.x-114) && this.app.mouseX<=(this.lobo.x+114)  && this.app.mouseY>=(this.lobo.y-(233/2)) && this.app.mouseY<=(this.lobo.y+(233/2))){
+            this.overlobo=true;
+            
+        }else{
+            this.overlobo=false;}
+
+            if (this.validarChoque(this.casa1) && this.pintarcasa==true) {
+                this.restriccion1=false;
+                
+            }
+          
+      
+
 
 
       break;
 
-      case 2:
-          this.app.image(this.final,0,0)
+      case 3:
+          this.app.image(this.fondo3,0,0);
+
+
+      break;
+
+
+      case 4:
+         this.app.image(this.final,0,0)
           this.app.textSize(70)
           this.app.text("Leer", 1090, 260)
           this.app.text("de nuevo", 1050, 300)
@@ -149,22 +199,32 @@ clic(){
         }
         //if (this.validarChoque(this.)) {
             
-        //}
-        this.posiconx=this.app.mouseX-(this.lobox+114);
-          this.posiciony=this.app.mouseY-this.loboy;
+        
+        this.posiconx=this.app.mouseX-(this.lobo.x+114);
+          this.posiciony=this.app.mouseY-this.lobo.y;
             
-            if(this.app.mouseX>=734 && this.app.mouseX<=1092  && this.app.mouseY>=184 && this.app.mouseY<=612 && this.pantalla==1){
-                this.pintarcasa=false;
-                this.pintarroca=true;
-            }
+          if(this.app.mouseX>=734 && this.app.mouseX<=1092  && this.app.mouseY>=184 && this.app.mouseY<=612 && this.pantalla==1){
+            this.pintarcasa=false;
+            this.pintarroca=true;
+            //se le agrega la restriccion aqui
+            this.restriccion1=true;
+        }
             
-            if(this.app.mouseX>=1099 && this.app.mouseX<=1575  && this.app.mouseY>=252 && this.app.mouseY<=728 && this.pantalla==1){
+            if(this.app.mouseX>=this.roca.x && this.app.mouseX<=(this.roca.x+this.roca.ancho) && this.app.mouseY>=this.roca.y && this.app.mouseY<=(this.roca.y+this.roca.alto) && this.pantalla==1){
                 this.aplastarroca=true;
-                console.log(holi);
+                this.restriccion2=true;
+                this.pintarflecha=true;
+                
             }
+
+        if (this.app.mouseX>=1365 && this.app.mouseX<=1463 && this.app.mouseY>=640 && this.app.mouseY<=697 && this.pintarflecha==true) {
+            this.pantalla=2
+            
+        }    
+     break;    
             
         
-     break;
+       
 
 
         case 2: 
@@ -179,23 +239,24 @@ clic(){
 clicsostenido(){
  if(this.seleccion)
  { 
-     if (this.lobox<=707 && this.pintarcasa==true) {
-        this.lobox=this.app.mouseX-this.posicionx;
+     if (this.restriccion1==true && this.restriccion2==true ) {
+        this.lobo.x=this.app.mouseX-this.posicionx;
+        this.lobo.y=this.app.mouseY-this.posiciony;
 
 
          
      }
-    
-    
- 
+    }
+
+   
      
-     this.loboy=this.app.mouseY-this.posiciony;
+     
 
 
  }
 
 
-}
+
 
 clicsuelto(){
 this.seleccion=false;
@@ -203,8 +264,8 @@ this.seleccion=false;
 
 }
 
-validarChoque(d,e){
-    if (d.x + 10 > e.x && d.x - 10 < e.x && d.y + 10 > e.y && d.y - 10 < e.y) {
+validarChoque(e){
+    if (this.lobo.x + (this.ancholobo/2) > e.x && this.lobo.x - (this.ancholobo/2)) {
       return true;
     }
     return false;
