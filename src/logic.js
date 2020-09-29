@@ -4,13 +4,11 @@ this.app=app;
 this.app.createCanvas(1530,754);
 this.fondo=this.app.loadImage("src/Images/fondo.jpg");
 this.inicio=this.app.loadImage("src/Images/Pantalla 1.jpg");
-this.pantalla=0;
+this.pantalla=2;
 this.font=this.app.loadFont("src/Font/MoonbrightDemo-1GGn2.ttf");
 this.final=this.app.loadImage("src/Images/Pantalla 3.jpg");
 this.cerdo1=this.app.loadImage("src/Images/Cerdo 1.png");
 this.cerdo2=this.app.loadImage("src/Images/Cerdo 2.png");
-this.casa2=this.app.loadImage("src/Images/Casa 2.png");
-this.casa3=this.app.loadImage("src/Images/Casa 3.png");
 this.gasolina=this.app.loadImage("src/Images/Gasolina.png");
 this.flecha=this.app.loadImage("src/Images/Flecha.png");
 this.fondo2=this.app.loadImage("src/Images/Fondo 2.jpg");
@@ -19,14 +17,15 @@ this.fondo3=this.app.loadImage("src/Images/Fondo3.jpg");
 
 this.lobox=100;
 this.cerdo1x=822;
-this.cerdo2x=1647;
+this.cerdo2x=850;
 this.casa1x=707;
 this.casa1y=175;
-this.casa2x=1529;
-this.casa3x=2201;
+this.casa2x=730;
+this.casa2y=120;
+this.casa3x=857;
 this.rocax=1089;
 this.rocay=-1100;
-this.gasolinax=2679;
+this.gasolinax=1326;
 this.fondox=0;
 this.loboy=432;
 this.posicionx=0;
@@ -37,6 +36,13 @@ this.anchocasa=410;
 this.altocada=450;
 this.ancholobo=228;
 this.altolobo=233;
+this.anchocasa2=419;
+this.altocasa2=491;
+this.anchocasa3=489;
+this.altocasa3=560;
+this.casa3y=38;
+
+
 
 
 this.seleccion=false;
@@ -49,13 +55,18 @@ this.restriccion2=true;
 this.restriccion3=true;
 this.restriccion4=true;
 this.pintarflecha=false;
+this.volarcasa=false;
 
 
 
 this.casa1=new Obstaculo(app,this.casa1x,this.casa1y,"src/Images/Casa 1.png",this.anchocasa,this.altocasa);
-this.casa2=new Obstaculo(app,this.casa1x,this.casa1y,"src/Images/Casa 1.png",this.anchocasa,this.altocasa);
-this.roca=new Obstaculo(app,this.rocax,this.rocay,"src/Images/Roca.png",this.anchoroca,this.altoroca);
+this.casa2=new Casa(app,this.casa2x,this.casa2y,"src/Images/Casa 2.png",this.anchocasa2,this.altocasa2);
+this.casa3=new Obstaculo(app,this.casa3x,this.casa3y,"src/Images/Casa 3.png",this.anchocasa3,this.altocasa3);
+this.roca=new Roca(app,this.rocax,this.rocay,"src/Images/Roca.png",this.anchoroca,this.altoroca);
 this.lobo=new Lobo(app,this.lobox,this.loboy,"src/Images/Lobo.png",this.ancholobo,this.altolobo);
+this.lobo2=new Lobo(app,this.lobox,this.loboy,"src/Images/Lobo.png",this.ancholobo,this.altolobo);
+this.lobo3=new Lobo(app,this.lobox,this.loboy,"src/Images/Lobo.png",this.ancholobo,this.altolobo);
+
 
 
 } 
@@ -86,7 +97,7 @@ draw(){
       
       
       this.app.image(this.cerdo1,this.cerdo1x,375)
-      this.app.image(this.cerdo2,this.cerdo2x,200) 
+      
       
       if(this.pintarcasa==true){
          
@@ -101,12 +112,12 @@ draw(){
       }
       
       if (this.pintarroca==true) {
-        this.roca.moverObstaculo();
+        this.roca.moverRoca();
         this.roca.dibujarObstaculo();
         this.rocay++;
 
         if (this.aplastarroca==true) {
-            this.roca.aplastarObjeto();
+            this.roca.aplastarRoca();
           
         }   
 
@@ -126,7 +137,7 @@ draw(){
       this.app.imageMode(this.app.CORNER)
       
       
-      this.app.image(this.casa2,this.casa2x,136)
+      
       this.app.image(this.casa3,this.casa3x,56)
       this.app.image(this.gasolina,this.gasolinax,462)
 
@@ -140,27 +151,66 @@ draw(){
       break;
       
       case 2:
-          this.app.image(this.fondo2,0,0);
 
-          if(this.app.mouseX>=(this.lobo.x-114) && this.app.mouseX<=(this.lobo.x+114)  && this.app.mouseY>=(this.lobo.y-(233/2)) && this.app.mouseY<=(this.lobo.y+(233/2))){
+          this.app.image(this.fondo2,0,0);
+          this.app.image(this.cerdo2,this.cerdo2x,185)
+
+          if(this.app.mouseX>=(this.lobo2.x-114) && this.app.mouseX<=(this.lobo2.x+114)  && this.app.mouseY>=(this.lobo2.y-(233/2)) && this.app.mouseY<=(this.lobo2.y+(233/2))){
             this.overlobo=true;
+            console.log("derazon")
             
         }else{
             this.overlobo=false;}
 
-            if (this.validarChoque(this.casa1) && this.pintarcasa==true) {
-                this.restriccion1=false;
+            if (this.validarChoque2(this.casa2) &&  this.volarcasa==false){
+                this.restriccion3=false;
                 
             }
-          
+         this.casa2.dibujarObstaculo();
+
+         if (this.volarcasa==true) {
+             this.casa2.moverCasa();
+             
+             
+         }
+         if (this.volarcasa==true) {
+            this.app.image(this.flecha,1365,640)
+        }
+
+         this.app.imageMode(this.app.CENTER)
+         this.lobo2.dibujarLobo();
+         this.app.imageMode(this.app.CORNER)
+
+         if (this.volarcasa==true) {
+            this.cerdo2x+=8;
+        }
       
+        
 
 
 
       break;
 
       case 3:
-          this.app.image(this.fondo3,0,0);
+        this.app.image(this.fondo3,0,0);
+        this.app.image(this.gasolina,this.gasolinax,460);
+        if(this.app.mouseX>=(this.lobo3.x-114) && this.app.mouseX<=(this.lobo3.x+114)  && this.app.mouseY>=(this.lobo3.y-(233/2)) && this.app.mouseY<=(this.lobo3.y+(233/2))){
+            this.overlobo=true;
+
+            
+        }else{
+            this.overlobo=false;}
+
+            if (this.validarChoque3(this.casa3)) {
+                this.restriccion4=false;
+                console.log("hola")
+                
+            }
+     this.casa3.dibujarObstaculo();
+     
+     this.app.imageMode(this.app.CENTER)
+         this.lobo3.dibujarLobo();
+         this.app.imageMode(this.app.CORNER)
 
 
       break;
@@ -228,25 +278,78 @@ clic(){
 
 
         case 2: 
-            if(this.app.mouseX>=983 && this.app.mouseX<=1313 && this.app.mouseY>=210 && this.app.mouseY<=313){
-                this.pantalla=1
-            }
 
-        break;         
+
+            if (this.overlobo==true) {
+                this.seleccion=true;
+                
+            } else{
+                this.seleccion=false;
+            }
+            this.posiconx=this.app.mouseX-(this.lobo2.x+114);
+          this.posiciony=this.app.mouseY-this.lobo2.y;
+
+          if(this.app.mouseX>=this.casa2x && this.app.mouseX<=(this.casa2x+this.anchocasa2) && this.app.mouseY>=this.casa2y && this.app.mouseY<=(this.casa2y+this.altocasa2)){
+                       this.restriccion3=true;
+                       this.volarcasa=true;
+            
+            
+     }
+     if (this.app.mouseX>=1365 && this.app.mouseX<=1463 && this.app.mouseY>=640 && this.app.mouseY<=697 && this.volarcasa==true) {
+        this.pantalla=3
+        
+        
+    } 
+
+        break; 
+        
+        
+        case 3:
+            if (this.overlobo==true) {
+                this.seleccion=true;
+                
+            } else{
+                this.seleccion=false;
+            }
+            this.posiconx=this.app.mouseX-(this.lobo3.x+114);
+            this.posiciony=this.app.mouseY-this.lobo3.y;
+            
+            
+          if(this.app.mouseX>=this.casa3x && this.app.mouseX<=(this.casa3x+this.anchocasa3) && this.app.mouseY>=this.casa3y && this.app.mouseY<=(this.casa3y+this.altocasa3)){
+            this.restriccion4=true;
+            
+ 
+ 
+}
+
+
+
             }
     }
 
 clicsostenido(){
+    
  if(this.seleccion)
- { 
-     if (this.restriccion1==true && this.restriccion2==true ) {
+ {  if (this.pantalla==2  && this.restriccion3==true) {
+    this.lobo2.x=this.app.mouseX-this.posicionx;
+    this.lobo2.y=this.app.mouseY-this.posiciony;
+     
+ }
+     if (this.restriccion1==true && this.restriccion2==true && this.pantalla==1) {
         this.lobo.x=this.app.mouseX-this.posicionx;
         this.lobo.y=this.app.mouseY-this.posiciony;
 
 
          
      }
+     if (this.pantalla==3 && this.restriccion4==true) {
+        this.lobo3.x=this.app.mouseX-this.posicionx;
+        this.lobo3.y=this.app.mouseY-this.posiciony;
     }
+   
+        
+        
+    
 
    
      
@@ -254,6 +357,9 @@ clicsostenido(){
 
 
  }
+}
+
+
 
 
 
@@ -270,7 +376,23 @@ validarChoque(e){
     }
     return false;
   }
+
+
+validarChoque2(e){
+    if (this.lobo2.x + (this.ancholobo/2) > e.x && this.lobo2.x - (this.ancholobo/2)) {
+        return true;
+      }
+      return false;
+    }
+    
+validarChoque3(e){
+    if (this.lobo3.x + (this.ancholobo/2) > e.x && this.lobo3.x - (this.ancholobo/2)) {
+        return true;
+      }
+      return false;
+    }
 }
+
 
 
 

@@ -15,24 +15,6 @@ class Obstaculo{
 dibujarObstaculo(){
     this.app.image(this.imagen,this.x,this.y,this.ancho,this.alto);
 
-
-
-
 }
-
-moverObstaculo(){
-    
-    if (this.y<=252) {
-        this.y+=12;
-        
-    }
-}
-aplastarObjeto(){
-    this.alto=138;
-    this.y=473;
-
-}
-
-
 
 }

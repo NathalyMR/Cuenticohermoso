@@ -11,7 +11,6 @@ app.mousePressed=function(){
     logica.clic();
 }
 
-
 app.mouseDragged=function(){
     logica.clicsostenido();
 }
