@@ -361,9 +361,37 @@ if (this.app.mouseX>=1365 && this.app.mouseX<=1463 && this.app.mouseY>=640 && th
         
         
     } 
+    case 4:
+                if(this.app.mouseX>=983  && this.app.mouseX<=1313 && this.app.mouseY>=210 && this.app.mouseY<=313){
+                    this.pantalla=1;
+                    this.pintarcasa=true;
+                    this.aplastarroca=false;
+                    this.lobo.x=this.lobox;
+                    this.lobo.y=this.loboy;
+                    this.cerdo1x=822;
+                    this.roca.alto=476;
+                    this.roca.y=-1100;
+                    this.pintarflecha=false;
+                    this.pintarroca=false;
+                    this.volarcasa=false;
+                    this.casa2.y=120;
+                    this.cerdo2x=850;
+                    this.prenderFuego=false;
+                    this.lobo2.x=this.lobox;
+                    this.lobo2.y=this.loboy;
+                    this.lobo3.x=this.lobox;
+                    this.lobo3.y=this.loboy;
+                    
+
+
+                }
+
+                break;
 
 
             }
+
+            
     }
 
 clicsostenido(){
