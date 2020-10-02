@@ -66,6 +66,7 @@ this.prenderFuego=false;
 
 
 
+
 this.casa1=new Obstaculo(app,this.casa1x,this.casa1y,"src/Images/Casa 1_",this.anchocasa,this.altocasa);
 this.casa2=new Casa(app,this.casa2x,this.casa2y,"src/Images/Casa 2_",this.anchocasa2,this.altocasa2);
 this.casa3=new Obstaculo(app,this.casa3x,this.casa3y,"src/Images/Casa 3_",this.anchocasa3,this.altocasa3);
@@ -409,7 +410,7 @@ if (this.app.mouseX>=1365 && this.app.mouseX<=1463 && this.app.mouseY>=640 && th
         this.pantalla=4
         
         
-    } 
+    } break;
     case 4:
                 if(this.app.mouseX>=983  && this.app.mouseX<=1313 && this.app.mouseY>=210 && this.app.mouseY<=313 && this.pantalla==4){
                     this.pantalla=1;
@@ -431,6 +432,13 @@ if (this.app.mouseX>=1365 && this.app.mouseX<=1463 && this.app.mouseY>=640 && th
                     this.lobo3.x=this.lobox;
                     this.lobo3.y=this.loboy;
                     
+
+
+                }
+
+                
+                if(this.app.mouseX>=980  && this.app.mouseX<=1310 && this.app.mouseY>=442 && this.app.mouseY<=546 && this.pantalla==4){
+                    this.descargarTexto();
 
 
                 }
@@ -494,7 +502,54 @@ validarChoque3(e){
       }
       return false;
     }
+
+
+
+descargarTexto(){
+    var text = this.crearTexto();
+        var a = window.document.createElement('a');
+        a.href = window.URL.createObjectURL(new Blob([text], {type: 'text/plain'}));
+        a.download = 'cuento.txt';
+
+        document.body.appendChild(a)
+        a.click();
+        document.body.removeChild(a)
+
+
 }
+
+crearTexto(){
+    return("Había una vez tres cerditos que vivían al aire libre cerca del bosque. A menudo se sentían inquietos porque por allí solía pasar un" + (this.pintarflecha? " LOBO ":" lobo ") + "malvado" + 
+    "y peligroso que amenazaba con comérselos." +
+    "Un día se pusieron de acuerdo en que lo más prudente era que cada uno construyera una casa para estar más protegidos." +
+    
+    "Cada  cerdito se fue a vivir a su propio hogar. Todo parecía tranquilo hasta que una mañana, el más pequeño que estaba jugando en un charco de barro," + 
+    "vio aparecer entre los arbustos al temible" + (this.pintarflecha? " LOBO ":" lobo ") + ". El pobre cochino empezó a correr y se refugió en su recién estrenada" + (!this.pintarcasa? " LA CASITA DE PAJA ":" la casita de paja ") +"." +
+    "Cerró la puerta y respiró aliviado. Pero desde dentro oyó que el" + (this.pintarflecha? " LOBO ":" lobo ") + "gritaba:" +
+    
+    "-¡Soplaré y soplaré y la casa derribaré!" +
+    
+    "Y tal como lo dijo, comenzó a soplar y" + (!this.pintarcasa? " LA CASITA DE PAJA ":" la casita de paja ") + "se desmoronó. El cerdito, aterrorizado, salió corriendo hacia casa de su hermano mediano y  ambos se refugiaron allí." +
+    "El" + (this.pintarflecha? " LOBO ":" lobo ") + "corrió tras el cerdito y sin poder creerlo una" + (this.aplastarroca? " ROCA ":" roca ") + "apareció en su camino. Así que el" + (this.pintarflecha? " LOBO ":" lobo ") + "tubo usar su fuerza para aplastarla y después podría correr tras" +
+    "el cochinito:" +
+    
+    "–¡Soplaré y soplaré y la casa derribaré!" +
+    
+    "Sopló tan fuerte que la" + (!this.pintarcasa? " LA CASITA DE MADERA ":" la casita de madera ") + "empezó a moverse y al final todos los troncos que formaban la casa se cayeron." +
+    "Los hermanos, desesperados, huyeron a gran velocidad y llamaron a la puerta de su hermano mayor, quien les abrió y les hizo pasar, cerrando la puerta con llave." +
+    
+    "El temible" + (this.pintarflecha? " LOBO ":" lobo ") + "llegó y por más que sopló, no pudo mover ni un solo ladrillo de las paredes ¡Era una casa muy resistente! Aun así, no se dio por vencido y" +
+    "buscó un hueco por el que poder entrar." +
+    
+    "Pero en el camino, se encontró con una" + (this.prenderFuego? " GASOLINA ":" gasolina ") + "que terminó incendiándole para asustarle y que nunca más volviera al pueblo." +
+    
+    "A partir de ese día, los cerditos, se volvieron más responsables, construyeron una casa de ladrillo y cemento como la de su sabio hermano mayor y" +
+    "vivieron felices y tranquilos para siempre.")
+}
+}
+
+
+
 
 
 
