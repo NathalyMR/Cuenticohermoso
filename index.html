@@ -2,21 +2,29 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>StarField_p5.js</title>
+    <title>Cuentico</title>
+    <link rel="stylesheet" href="./main.css">
+    <script src="./src/Model/parallax.js"></script>
 
-    <script src="./src/scripts/libraries/p5.min.js"></script>
-    <script src="./src/scripts/libraries/p5.sound.min.js"></script>
-    <script src="./src/scripts/libraries/p5.dom.min.js"></script>
 
-    <script src="./src/View/logic.js"></script>
-    <script src="./src/View/sketch.js"></script>
-    <script src="./src/Model/Obstaculo.js"></script>
-    <script src="./src/Model/Lobo.js"></script>
-    <script src="./src/Model/Casa.js"></script>
-    <script src="./src/Model/Roca.js"></script>
+
 
     <style> body {padding: 0; margin: 0;} canvas {vertical-align: top;} </style>
   </head>
   <body>
+    <div class="container"> 
+      
+      <ul id="scene">
+        <li class="layer" data-depth=".1"><img src="./src/Images/Nube 13.png"></li>
+        <li class="layer" data-depth="1"><img src="./src/Images/hola.png"></li>
+        <li class="layer" data-depth="-1"><img src="./src/Images/Solecito.png"></li>
+
+        
+      </ul>
+    </div>
+    <script>
+      var scene = document.getElementById('scene');
+      var parallax = new Parallax(scene);
+    </script>
   </body>
 </html>

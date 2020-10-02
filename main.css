@@ -1,0 +1,20 @@
+body
+{
+	margin: 0;
+	padding: 0;
+}
+.container
+{
+	width: 1530px;
+	height: 754px;
+	overflow: hidden;
+    background-attachment: fixed;
+    background-color: #05596D;
+}
+.mixBlnd
+{
+	background-blend-mode: screen;
+} 
+.scene{
+    padding:0;
+}
