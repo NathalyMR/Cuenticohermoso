@@ -28,6 +28,8 @@ a{
     font-size: 80px;
     margin-left: 1100px;
     padding-bottom: 100px;
+    position: absolute;
+    z-index: 1;
     margin-top: 600px;
     font-family: "MoonbrightDemo-1GGn2";
 }

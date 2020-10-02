@@ -4,7 +4,7 @@ this.app=app;
 this.app.createCanvas(1530,754);
 this.fondo=this.app.loadImage("src/Images/fondo.jpg");
 this.inicio=this.app.loadImage("src/Images/Pantalla 1.jpg");
-this.pantalla=0;
+this.pantalla=1;
 this.font=this.app.loadFont("src/Font/MoonbrightDemo-1GGn2.ttf");
 this.final=this.app.loadImage("src/Images/Pantalla 3.jpg");
 this.cerdo1=this.app.loadImage("src/Images/Cerdo1.png");
@@ -86,12 +86,7 @@ draw(){
 
    
     switch(this.pantalla){
-     case 0: 
-      this.app.image(this.inicio,0,0)
-      this.app.text("Leer",690,550)
-      this.app.textSize(110)
-
-      break;
+     
       
       case 1:
         this.lobo.cambiarEstado();
